@@ -56,9 +56,8 @@ class RagtechConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
 
 class RagtechConfigFlowOptionsFlowHandler(config_entries.OptionsFlow):
-    def __init__(self, config_entry):
-        self.config_entry = config_entry
-
+    # HA 2024.12+ makes OptionsFlow.config_entry a read-only property populated
+    # by the framework, so assigning to it in __init__ raises AttributeError.
     async def async_step_init(self, user_input=None):
         if user_input is not None:
             return self.async_create_entry(title="", data=user_input)
